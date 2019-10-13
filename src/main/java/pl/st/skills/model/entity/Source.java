@@ -1,6 +1,8 @@
 package pl.st.skills.model.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +16,12 @@ public class Source {
     private String description;
     @Column(unique = true, nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "sources")
+    private List<Skill> skills = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "sources1")
+    private List<User> users = new ArrayList<>();
 
     public Long getId() {
         return id;

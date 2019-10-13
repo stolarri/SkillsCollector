@@ -1,5 +1,7 @@
 package pl.st.skills.model.entity;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,6 +14,14 @@ public class Skill {
     private Long id;
     @Column(unique = true, nullable = false)
     private String name;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "sources_attached_skills",
+            joinColumns = { @JoinColumn(name = "skill_id")},
+            inverseJoinColumns = { @JoinColumn(name = "source_id" )}
+    )
+    private List<Source> sources = new ArrayList<>();
 
     public Long getId() {
         return id;

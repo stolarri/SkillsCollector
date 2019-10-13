@@ -1,6 +1,8 @@
 package pl.st.skills.model.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +21,14 @@ public class User {
     private String password;
     @Column(unique = true, nullable = false)
     private String username;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "users_known_sources",
+            joinColumns = { @JoinColumn(name = "user_id")},
+            inverseJoinColumns = { @JoinColumn(name = "source_id" )}
+    )
+    private List<Source> sources1 = new ArrayList<>();
 
     public Long getId() {
         return id;
