@@ -45,7 +45,7 @@ public class SourceDao extends BaseDao {
 
     public List<Source> getAllByName(String name) {
         return super.produceInTransaction(
-                session -> session.createQuery("SELECT n FROM Source s WHERE s.name = :name", Source.class)
+                session -> session.createQuery("SELECT s FROM Source s WHERE s.name = :name", Source.class)
                         .setParameter("name", name)
                         .getResultList());
     }
