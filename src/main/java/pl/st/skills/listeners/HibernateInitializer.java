@@ -12,11 +12,13 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.util.Properties;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @WebListener
 public class HibernateInitializer implements ServletContextListener {
-    private DebugLogger logger;
+    private Logger logger = Logger.getGlobal();
+
     public final static String SESSION_FACTORY = "session_factory";
 
 
