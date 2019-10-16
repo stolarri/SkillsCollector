@@ -29,13 +29,13 @@ public class SourceDao extends BaseDao {
     }
 
 
-    public Boolean isSourceAvailable(String name) {
+    /* public Boolean isSourceAvailable(String name) {
         return super.produceInTransaction(
                 session -> session.createQuery("SELECT count(n) FROM Source n WHERE n.name = :name", Long.class)
                         .setParameter("name", name)
                         .getSingleResult() <= 0
         );
-    }
+    } */
 
     public List<Source> getAll() {
         return super.produceInTransaction(
@@ -43,11 +43,11 @@ public class SourceDao extends BaseDao {
                         .getResultList());
     }
 
-    public List<Source> getAllByName(String name) {
+   /* public List<Source> getAllByName(String name) {
         return super.produceInTransaction(
                 session -> session.createQuery("SELECT s FROM Source s WHERE s.name = :name", Source.class)
                         .setParameter("name", name)
                         .getResultList());
-    }
+    } */
 
 }

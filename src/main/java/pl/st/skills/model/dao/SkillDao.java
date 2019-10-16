@@ -27,13 +27,13 @@ public class SkillDao extends BaseDao {
         super.executeInTransaction(session -> session.delete(skill));
     }
 
-    public Boolean isSkillAvailable(String skill) {
+   /* public Boolean isSkillAvailable(String skill) {
         return super.produceInTransaction(
                 session -> session.createQuery("SELECT count(s) FROM Skill s WHERE s.skill = :skill", Long.class)
                         .setParameter("skill", skill)
                         .getSingleResult() <= 0
         );
-    }
+    } */
 
     public List<Skill> getAll() {
         return super.produceInTransaction(
@@ -41,10 +41,10 @@ public class SkillDao extends BaseDao {
                         .getResultList());
     }
 
-    public List<Skill> getAllByName(String name) {
+    /* public List<Skill> getAllByName(String name) {
         return super.produceInTransaction(
                 session -> session.createQuery("SELECT n FROM Skill s WHERE s.name = :name", Skill.class)
                         .setParameter("name", name)
                         .getResultList());
-    }
+    } */
 }

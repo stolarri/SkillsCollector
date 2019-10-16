@@ -7,17 +7,16 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(name = "first_name")
     private String first_name;
-    @Column(nullable = false)
+    @Column(name = "last_name")
     private String last_name;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String password;
     @Column(unique = true, nullable = false)
     private String username;
@@ -29,6 +28,9 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "source_id" )}
     )
     private List<Source> sources1 = new ArrayList<>();
+
+    public User() {
+    }
 
     public Long getId() {
         return id;
