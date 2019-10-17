@@ -1,6 +1,7 @@
 package pl.st.skills.model.dao;
 
 import org.hibernate.SessionFactory;
+import pl.st.skills.model.entity.Skill;
 import pl.st.skills.model.entity.User;
 
 import java.util.List;
@@ -54,5 +55,12 @@ public class UserDao extends BaseDao {
                         .setParameter("username", username)
                         .setParameter("password", password)
                         .getResultList());
+    }
+
+    public List<Skill> getAllUserSkills(String username) {
+        return super.produceInTransaction(
+                session -> session.createQuery("SELECT sk FROM User u JOIN u.sources1 s JOIN s.skills sk WHERE u.username = :username", Skill.class)
+                .setParameter("username", username)
+                .getResultList());
     }
 }
