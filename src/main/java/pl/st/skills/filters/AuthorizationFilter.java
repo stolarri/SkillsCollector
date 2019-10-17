@@ -24,18 +24,21 @@ public class AuthorizationFilter extends HttpFilter {
 
         withAuth.add("/user/skills");
         withAuth.add("/logout");
+        withAuth.add("/user/sources");
     }
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String path = req.getServletPath();
 
-        if(withoutAuth.contains(path)) {
+        if (withoutAuth.contains(path)) {
             chain.doFilter(req, res);
-        } else if(withAuth.contains(path) && req.getSession().getAttribute("user") != null) {
-            chain.doFilter(req, res);
-        } else if(req.getSession().getAttribute("user") == null) {
-            res.sendRedirect("/login");
+        } else if (withAuth.contains(path)) {
+            if (req.getSession().getAttribute("user") != null) {
+                chain.doFilter(req, res);
+            } else {
+                res.sendRedirect("/login");
+            }
         } else {
             res.sendError(500, "Brak autoryzacji dla ścieżki: " + path);
         }
