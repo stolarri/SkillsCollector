@@ -72,4 +72,13 @@ public class UserDao extends BaseDao {
                 .getResultList());
 
     }
+
+    public void sourceConfirmation(String username, Long sourceID) {
+        super.executeInTransaction(session -> {
+            User user = session.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                    .setParameter("username", username).getSingleResult();
+            Source source = session.get(Source.class, sourceID);
+            user.getSources1().add(source);
+        });
+    }
 }

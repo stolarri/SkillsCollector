@@ -26,6 +26,7 @@ public class AuthorizationFilter extends HttpFilter {
         withAuth.add("/logout");
         withAuth.add("/user/sources");
         withAuth.add("/user/unknown-sources");
+        withAuth.add("/sources/confirm");
     }
 
     @Override

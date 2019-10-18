@@ -72,6 +72,14 @@ public class User {
         this.username = username;
     }
 
+    public List<Source> getSources1() {
+        return sources1;
+    }
+
+    public void setSources1(List<Source> sources1) {
+        this.sources1 = sources1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

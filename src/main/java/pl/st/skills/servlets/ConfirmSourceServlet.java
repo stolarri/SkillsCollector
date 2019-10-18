@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/user/unknown-sources")
-public class UnknownSourcesServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/sources/confirm")
+public class ConfirmSourceServlet extends HttpServlet {
     SourceDao sourceDao;
     UserDao userDao;
 
@@ -29,23 +29,17 @@ public class UnknownSourcesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) req.getSession().getAttribute("user");
-        String username = user.getUsername();
-        List<Source> knownSources = userDao.getAllKnownSources(username);
-        List<Source> unknownSources = sourceDao.getAll();
 
-        unknownSources.removeAll(knownSources);
-        req.setAttribute("unknownSrcs", unknownSources);
-        req.getRequestDispatcher("/WEB-INF/views/user-unknown-sources.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User loggedUser = (User) req.getSession().getAttribute("user");
 
-        Long sourceId = Long.parseLong(req.getParameter("confirmedSource"));
-        userDao.sourceConfirmation(loggedUser.getUsername(), sourceId);
-
-        resp.sendRedirect("/user/sources");
+        String idStr = req.getParameter("sourceID");
+        Long id = Long.parseLong(idStr);
+        req.setAttribute("Id", id);
+        List<Source> sources = sourceDao.getAll();
+        req.setAttribute("sources", sources);
+        req.getRequestDispatcher("/WEB-INF/views/confirm-source.jsp").forward(req,resp);
     }
 }
